@@ -9,6 +9,9 @@ const Detail = props => {
   deleteItem = item => {
     props.deleteItem(item);
   };
+  editItem = item => {
+    props.editItem(item);
+  };
   console.log(props);
   return (
     <View style={styles.content}>
@@ -22,7 +25,7 @@ const Detail = props => {
         <TouchableOpacity onPress={() => deleteItem(props.id)}>
           <Icon name="delete" size={34} color="red" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => false}>
+        <TouchableOpacity onPress={() => editItem(props.id)}>
           <Icon name="edit" size={34} color="#94D211" />
         </TouchableOpacity>
       </View>

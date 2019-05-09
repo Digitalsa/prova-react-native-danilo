@@ -44,6 +44,10 @@ export default class List extends Component {
       .catch(err => console.log(err));
     this.carregarRegistros();
   };
+  editItem = id => {
+    console.log(id);
+    this.props.navigation.navigate("Adicionar", { id: id });
+  };
 
   render() {
     console.log(this.state.users);
@@ -53,9 +57,20 @@ export default class List extends Component {
           <Text style={styles.title}>Lista de Usuários</Text>
         </View>
         <View style={{}}>
-          <ScrollView style={{ backgroundColor: "#362986", padding: 10 }}>
+          <ScrollView
+            style={{
+              backgroundColor: "#362986",
+              padding: 10,
+              marginBottom: 70
+            }}
+          >
             {this.state.users.map((row, index) => (
-              <Detail key={index} {...row} deleteItem={this.deleteItem} />
+              <Detail
+                key={index}
+                {...row}
+                deleteItem={this.deleteItem}
+                editItem={this.editItem}
+              />
             ))}
           </ScrollView>
         </View>
@@ -86,5 +101,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 20,
     marginBottom: 10
+  },
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: "white"
   }
 });

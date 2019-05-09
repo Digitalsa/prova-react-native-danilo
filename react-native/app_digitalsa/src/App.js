@@ -11,6 +11,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import List from "./components/List";
 import Adicionar from "./components/Adicionar";
+import Login from "./components/Login";
 const AdicionarScreen = () => <Text>Adicionarrr</Text>;
 const AppNavigator = createStackNavigator(
   {
@@ -19,10 +20,13 @@ const AppNavigator = createStackNavigator(
     },
     Listar: {
       screen: List
+    },
+    Login: {
+      screen: Login
     }
   },
   {
-    initialRouteName: "Adicionar",
+    initialRouteName: "Login",
     headerBackTitleVisible: false,
     headerMode: "none"
   }

@@ -5,7 +5,7 @@ import { View, Text, StyleSheet, Image, ToastAndroid } from "react-native";
 import baseUrl from "./../../config/baseUrl";
 import Axios from "axios";
 import Detail from "./Detail";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -17,6 +17,7 @@ export default class List extends Component {
   state = {
     users
   };
+
   componentDidMount() {
     this.carregarRegistros();
   }
@@ -44,9 +45,8 @@ export default class List extends Component {
       .catch(err => console.log(err));
     this.carregarRegistros();
   };
-  editItem = id => {
-    console.log(id);
-    this.props.navigation.navigate("Adicionar", { id: id });
+  editItem = item => {
+    this.props.navigation.navigate("Adicionar", { item });
   };
 
   render() {

@@ -23,11 +23,19 @@ export default class Adicionar extends Component {
   state = {
     nome: "",
     email: "",
-    password: ""
+    password: "",
+    id: ""
   };
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.navigation.state.params.item);
+    this.setState({
+      nome: nextProps.navigation.state.params.item.nome,
+      email: nextProps.navigation.state.params.item.email,
+      password: nextProps.navigation.state.params.item.password,
+      id: nextProps.navigation.state.params.item.id
+    });
+  }
   onSubmitHandlerValidateFields = () => {
-    console.log(this.state);
-
     if (
       this.state.nome === "" ||
       this.state.nome === null ||
@@ -47,12 +55,9 @@ export default class Adicionar extends Component {
   onSubmitHandler = () => {
     //http://34.192.62.185:3256/api/usuarios/novo
     const data = this.state;
-    if (
-      this.props.navigation.state.params.id &&
-      this.props.navigation.state.params.id > 0
-    ) {
-      const { id } = this.props.navigation.state.params;
-      Axios.put(`${url}usuarios/update/${id}`)
+    console.log(this.state.id);
+    if (this.state.id > 0) {
+      Axios.put(`${url}usuarios/update/${this.state.id}`, { ...this.state })
         .then(resp => {
           ToastAndroid.show(
             "Registro atualizado com sucesso!",
@@ -81,16 +86,19 @@ export default class Adicionar extends Component {
     return (
       <View style={styles.content}>
         <TextInput
+          value={this.state.nome}
           style={styles.tx}
           placeholder="Nome"
           onChangeText={nome => this.setState({ nome })}
         />
         <TextInput
+          value={this.state.email}
           style={styles.tx}
           placeholder="Email"
           onChangeText={email => this.setState({ email })}
         />
         <TextInput
+          value={this.state.password}
           style={styles.tx}
           placeholder="Senha"
           onChangeText={password => this.setState({ password })}

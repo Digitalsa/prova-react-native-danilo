@@ -22,7 +22,9 @@ const AppNavigator = createStackNavigator(
     }
   },
   {
-    initialRouteName: "Listar"
+    initialRouteName: "Listar",
+    headerBackTitleVisible: false,
+    headerMode: "none"
   }
 );
 

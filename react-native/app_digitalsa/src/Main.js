@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 import AppNavigator from "./App";
 import { createAppContainer } from "react-navigation";
@@ -11,3 +11,9 @@ export default class Main extends Component {
     return <AppContainer />;
   }
 }
+
+const styles = StyleSheet.create({
+  content: {
+    backgroundColor: "#362986"
+  }
+});

@@ -1,0 +1,15 @@
+<div class="card spacing">
+  <div class="card-header">Código:{{ detailUser.id }}</div>
+  <div class="card-body">
+    <h5 class="card-title">{{ detailUser.nome }}</h5>
+    <p class="card-text">{{ detailUser.email }}</p>
+    <p class="card-text">Criado em: {{ detailUser.created_at }}</p>
+    <a href="#" class="btn btn-primary">Editar </a>
+    <a
+      href="#"
+      class="btn btn-danger spacing-button"
+      (click)="registroSelecionadoExclusao(detailUser.id)"
+      >Excluir</a
+    >
+  </div>
+</div>

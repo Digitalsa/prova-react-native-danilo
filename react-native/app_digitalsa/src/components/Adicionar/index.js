@@ -24,16 +24,17 @@ export default class Adicionar extends Component {
     nome: "",
     email: "",
     password: "",
-    id: ""
+    celular: ""
   };
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.navigation.state.params.item);
-    this.setState({
-      nome: nextProps.navigation.state.params.item.nome,
-      email: nextProps.navigation.state.params.item.email,
-      password: nextProps.navigation.state.params.item.password,
-      id: nextProps.navigation.state.params.item.id
-    });
+  componentDidMount() {
+    if (this.props.navigation.state.params) {
+      this.setState({
+        nome: this.props.navigation.state.params.item.nome || "",
+        email: this.props.navigation.state.params.item.email || "",
+        password: "",
+        id: this.props.navigation.state.params.item.id || ""
+      });
+    }
   }
   onSubmitHandlerValidateFields = () => {
     if (
@@ -55,31 +56,36 @@ export default class Adicionar extends Component {
   onSubmitHandler = () => {
     //http://34.192.62.185:3256/api/usuarios/novo
     const data = this.state;
-    console.log(this.state.id);
-    if (this.state.id > 0) {
-      Axios.put(`${url}usuarios/update/${this.state.id}`, { ...this.state })
+    console.log(this.props);
+    console.log(this.props.navigation.state.params.item.id);
+    if (this.props.navigation.state.params.item.id > 0) {
+      Axios.put(
+        `${url}usuarios/update/${this.props.navigation.state.params.item.id}`,
+        { ...this.state }
+      )
         .then(resp => {
+          console.log("Respota de atualizacao", resp);
           ToastAndroid.show(
             "Registro atualizado com sucesso!",
             ToastAndroid.SHORT
           );
           this.props.navigation.navigate("Listar");
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log("Erro de atualziacao", err));
+    } else {
+      Axios.post(`${url}usuarios/novo`, this.state)
+        .then(resp => {
+          console.log(resp);
+          ToastAndroid.show(
+            "Registro adicionado com sucesso!",
+            ToastAndroid.SHORT
+          );
+          this.props.navigation.navigate("Listar");
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
-
-    Axios.post(`${url}usuarios/novo`, this.state)
-      .then(resp => {
-        console.log(resp);
-        ToastAndroid.show(
-          "Registro adicionado com sucesso!",
-          ToastAndroid.SHORT
-        );
-        this.props.navigation.navigate("Listar");
-      })
-      .catch(err => {
-        console.log(err);
-      });
   };
 
   render() {
@@ -96,6 +102,12 @@ export default class Adicionar extends Component {
           style={styles.tx}
           placeholder="Email"
           onChangeText={email => this.setState({ email })}
+        />
+        <TextInput
+          value={this.state.celular}
+          style={styles.tx}
+          placeholder="9999-9999"
+          onChangeText={celular => this.setState({ celular })}
         />
         <TextInput
           value={this.state.password}

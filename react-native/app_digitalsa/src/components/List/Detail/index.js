@@ -1,8 +1,14 @@
 import React from "react";
 
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Animated
+} from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import * as moment from "moment";
+
 // import { Container } from './styles';
 
 const Detail = props => {
@@ -14,10 +20,20 @@ const Detail = props => {
   };
   console.log(props);
   return (
-    <View style={styles.content}>
+    <Animated.View style={[styles.content]}>
       <View style={styles.bio}>
-        <Text style={styles.title}>{props.nome}</Text>
+        <Animated.Text
+          style={[
+            styles.title,
+            { fontSize: props.animationFont },
+            { opacity: props.fade }
+          ]}
+        >
+          {props.nome}
+        </Animated.Text>
+
         <Text style={styles.subTitle}>Email: {props.email}</Text>
+        <Text style={styles.subTitle}>Celular: {props.celular}</Text>
       </View>
       <View style={styles.options}>
         <TouchableOpacity onPress={() => deleteItem(props.id)}>
@@ -27,7 +43,7 @@ const Detail = props => {
           <Icon name="edit" size={34} color="#94D211" />
         </TouchableOpacity>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

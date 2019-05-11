@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 
-import { View, Text, StyleSheet, Image, ToastAndroid } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ToastAndroid,
+  RefreshControl,
+  Animated,
+  ActivityIndicator
+} from "react-native";
 
 import baseUrl from "./../../config/baseUrl";
 import Axios from "axios";
@@ -15,13 +24,39 @@ const users = [];
 const url = baseUrl.baseUrl;
 export default class List extends Component {
   state = {
-    users
+    users,
+    refreshing: false,
+    loading: false,
+    fadeAnim: new Animated.Value(0), // Initial value for opacity: 0
+
+    textSize: new Animated.Value(10)
   };
 
   componentDidMount() {
+    console.log("Carregando Registros");
     this.carregarRegistros();
+    Animated.parallel([
+      Animated.timing(
+        // Animate over time
+        this.state.fadeAnim, // The animated value to drive
+        {
+          toValue: 1, // Animate to opacity: 1 (opaque)
+          duration: 3000 // Make it take a while
+        }
+      ),
+      Animated.timing(this.state.textSize, {
+        toValue: 20,
+        duration: 10000
+      })
+    ]).start();
   }
+
   carregarRegistros = () => {
+    users.length = 0;
+    this.setState({
+      refreshing: true,
+      loading: true
+    });
     users.length = 0;
     Axios.get(`${url}usuarios`)
       .then(resp => {
@@ -29,7 +64,9 @@ export default class List extends Component {
           users.push(row);
         });
         this.setState({
-          users
+          users,
+          refreshing: false,
+          loading: false
         });
       })
       .catch(err => {
@@ -50,22 +87,36 @@ export default class List extends Component {
   };
 
   render() {
-    console.log(this.state.users);
+    console.log(this.state.fadeAnim);
+
     return (
       <View style={{ flex: 1, backgroundColor: "#362986" }}>
         <View style={{ height: 50, backgroundColor: "#362986" }}>
           <Text style={styles.title}>Lista de Usuários</Text>
         </View>
         <View style={{}}>
+          <ActivityIndicator animating={this.state.loading} />
           <ScrollView
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl
+                style={{ margin: 0 }}
+                refreshing={this.state.refreshing}
+                onRefresh={this.carregarRegistros}
+              />
+            }
             style={{
               backgroundColor: "#362986",
-              padding: 10,
+              paddingLeft: 4,
+              paddingRight: 4,
               marginBottom: 70
             }}
           >
             {this.state.users.map((row, index) => (
               <Detail
+                fade={this.state.fadeAnim}
+                animationFont={this.state.textSize}
                 key={index}
                 {...row}
                 deleteItem={this.deleteItem}

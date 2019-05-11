@@ -1,7 +1,10 @@
-  <div class="container">
-
-    <h1 style="color: #FFF; text-align: center">Lista de Usuarios</h1>
-  <button type="button" class="btn btn-success">Adicionar</button>
-    <app-detail *ngFor="let u of users"  [detailUser] = "u" (myOutput)='onDeletarRegistro($event)'></app-detail>
-
-  </div>
+<app-menu></app-menu>
+<div class="container">
+  <h1 style="color: #FFF; text-align: center">Lista de Usuarios</h1>
+  <a   [routerLink]="routerAdicionar" class="btn btn-success">Adicionar</a>
+  <app-detail
+    *ngFor="let u of users"
+    [detailUser]="u"
+    (myOutput)="onDeletarRegistro($event)"
+  ></app-detail>
+</div>

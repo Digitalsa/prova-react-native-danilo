@@ -7,6 +7,7 @@ import { ApiService } from "../../services/api.service";
 })
 export class ListComponent implements OnInit {
   users: Array<any>;
+  private routerAdicionar: String = "/adicionar";
 
   constructor(private api: ApiService) {}
 
@@ -14,7 +15,7 @@ export class ListComponent implements OnInit {
     this.listar();
   }
   onDeletarRegistro(evento) {
-    this.api.delete(evento.item);
+    console.log(this.api.delete(evento));
   }
   listar() {
     this.api.list().subscribe(

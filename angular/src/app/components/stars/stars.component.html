@@ -1,0 +1,22 @@
+<app-menu></app-menu>
+<div class="container">
+  <h1
+    style="color:#FFF; margin-top: 20px; margin-bottom: 20px; text-align: center"
+  >
+    Sinopse dos Filmes - StarWars
+  </h1>
+  <div *ngFor="let s of stars" style="padding:10px">
+    <div class="card">
+      <div class="card-header">
+        {{ s.title }}
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Diretor:{{ s.director }}</h5>
+        <p class="card-text">
+          {{ s.opening_crawl }}
+        </p>
+        <h5 class="card-title">Produção: {{ s.producer }}</h5>
+      </div>
+    </div>
+  </div>
+</div>

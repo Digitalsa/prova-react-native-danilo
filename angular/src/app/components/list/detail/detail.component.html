@@ -3,13 +3,13 @@
   <div class="card-body">
     <h5 class="card-title">{{ detailUser.nome }}</h5>
     <p class="card-text">{{ detailUser.email }}</p>
-    <p class="card-text">Criado em: {{ detailUser.created_at }}</p>
+    <p class="card-text">Celular {{ detailUser.celular}}</p>
     <a href="#" class="btn btn-primary">Editar </a>
-    <a
+    <button
       href="#"
       class="btn btn-danger spacing-button"
       (click)="registroSelecionadoExclusao(detailUser.id)"
-      >Excluir</a
-    >
+      >Excluir</button>
+
   </div>
 </div>

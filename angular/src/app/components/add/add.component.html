@@ -1,12 +1,16 @@
+<app-menu></app-menu>
 <div class="container">
   <div class="jumbotron">
-    <form>
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="exampleInputEmail1">Nome</label>
         <input
           type="text"
           class="form-control"
           placeholder="Entre com seu nome"
+          id="nome"
+          name="nome"
+          formControlName="nome"
         />
       </div>
       <div class="form-group">
@@ -17,14 +21,36 @@
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
           placeholder="Enter email"
+          id="email"
+          name="email"
+          formControlName="email"
+        />
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Celular</label>
+        <input
+          type="tel"
+          class="form-control"
+          id="tel"
+          placeholder="64 9999-9999"
+          id="email"
+          name="tel"
+          formControlName="celular"
         />
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Passowrd</label>
-        <input type="password" class="form-control" placeholder="Password" />
-      </div>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Password"
+          id="password"
+          name="password"
+          formControlName="password"
+        />
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
     </form>
   </div>
 </div>

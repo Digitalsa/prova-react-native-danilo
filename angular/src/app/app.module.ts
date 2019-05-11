@@ -8,12 +8,32 @@ import { ListComponent } from "./components/list/list.component";
 import { DetailComponent } from "./components/list/detail/detail.component";
 import { ApiService } from "./services/api.service";
 import { routing } from "./app.routing";
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from "./components/login/login.component";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { AuthGuardService } from "./guard/auth-guard.service";
+import { Error404Component } from './error404/error404.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { StarsComponent } from './components/stars/stars.component';
 
 @NgModule({
-  declarations: [AppComponent, AddComponent, ListComponent, DetailComponent, LoginComponent],
-  imports: [BrowserModule, HttpClientModule, routing],
-  providers: [ApiService],
+  declarations: [
+    AppComponent,
+    AddComponent,
+    ListComponent,
+    DetailComponent,
+    LoginComponent,
+    Error404Component,
+    MenuComponent,
+    StarsComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    routing,
+    ReactiveFormsModule,
+    FormsModule
+  ],
+  providers: [ApiService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

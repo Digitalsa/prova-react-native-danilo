@@ -1,0 +1,15 @@
+<div class="card spacing">
+  <div class="card-header">Código:{{ detailUser.id }}</div>
+  <div class="card-body">
+    <h5 class="card-title">{{ detailUser.nome }}</h5>
+    <p class="card-text">{{ detailUser.email }}</p>
+    <p class="card-text">Celular {{ detailUser.celular}}</p>
+    <a [routerLink]="['/editar',detailUser.id]" class="btn btn-primary" (click)="registroSelecionadoUpdate(detailUser)">Editar </a>
+    <button
+      href="#"
+      class="btn btn-danger spacing-button"
+      (click)="registroSelecionadoExclusao(detailUser.id)"
+      >Excluir</button>
+
+  </div>
+</div>

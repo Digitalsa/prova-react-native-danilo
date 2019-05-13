@@ -19,6 +19,10 @@ export class ApiService {
   list() {
     return this.http.get<any[]>(`${this.urlApi}/usuarios`);
   }
+  findByID(id) {
+    const FINIDURL = `${this.urlApi}/usuarios/${id}`;
+    return fetch(FINIDURL);
+  }
   delete(item) {
     console.log("DELETANDO", item);
     const DELURL = `${this.urlApi}/usuarios/delete/${item.item}`;
@@ -75,17 +79,15 @@ export class ApiService {
       });
   }
   edit(item) {
-    const deleteReq = `${this.urlApi}/usuarios/delete/${item}`;
-    fetch(deleteReq, {
-      method: "DELETE"
-    })
-      .then(resposta => resposta.json())
-      .then(resp => {
-        console.log(resp);
-      })
-      .catch(err => {
-        console.log("Erro", err);
-      });
+    const editReq = `${this.urlApi}/usuarios/update/${item.id}`;
+    return fetch(editReq, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      method: "PUT",
+      body: JSON.stringify(item)
+    });
   }
   usuarioAutenticado() {
     console.log("Está autenticado ou não ?", this.isAutenticado);

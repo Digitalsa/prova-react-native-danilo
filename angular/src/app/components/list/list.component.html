@@ -6,5 +6,6 @@
     *ngFor="let u of users"
     [detailUser]="u"
     (myOutput)="onDeletarRegistro($event)"
+    (myOutPutEdit) = "onEditarRegistro($event)"
   ></app-detail>
 </div>

@@ -17,6 +17,16 @@ export class ListComponent implements OnInit {
   onDeletarRegistro(evento) {
     console.log(this.api.delete(evento));
   }
+  onEditarRegistro(evento) {
+    this.api
+      .edit(evento)
+      .then(resposta => resposta.json())
+      .then(json => {
+        console.log(json);
+        this.listar();
+      })
+      .catch(err => console.log(err));
+  }
   listar() {
     this.api.list().subscribe(
       res => {

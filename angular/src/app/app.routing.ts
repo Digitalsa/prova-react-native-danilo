@@ -31,6 +31,11 @@ const APP_ROUTES: Routes = [
     component: AddComponent,
     canActivate: [AuthGuardService]
   },
+  {
+    path: "editar/:id",
+    component: AddComponent,
+    canActivate: [AuthGuardService]
+  },
   { path: "**", component: Error404Component }
 ];
 export const routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);

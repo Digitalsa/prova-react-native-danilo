@@ -4,7 +4,7 @@
     <h5 class="card-title">{{ detailUser.nome }}</h5>
     <p class="card-text">{{ detailUser.email }}</p>
     <p class="card-text">Celular {{ detailUser.celular}}</p>
-    <a href="#" class="btn btn-primary">Editar </a>
+    <a [routerLink]="['/editar',detailUser.id]" class="btn btn-primary" (click)="registroSelecionadoUpdate(detailUser)">Editar </a>
     <button
       href="#"
       class="btn btn-danger spacing-button"

@@ -5,7 +5,7 @@ import {
   Validators,
   FormsModule
 } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { ApiService } from "src/app/services/api.service";
 @Component({
   selector: "app-add",
@@ -13,7 +13,10 @@ import { ApiService } from "src/app/services/api.service";
   styleUrls: ["./add.component.css"]
 })
 export class AddComponent implements OnInit {
+  usuario: any = {};
+
   constructor(
+    private _Activatedroute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
     private apiService: ApiService
@@ -21,6 +24,15 @@ export class AddComponent implements OnInit {
   addForm: FormGroup;
 
   ngOnInit() {
+    this.iniciaFormulario();
+    if (
+      this._Activatedroute.snapshot.params["id"] &&
+      this._Activatedroute.snapshot.params["id"] > 0
+    ) {
+      this.finByIdUser(this._Activatedroute.snapshot.params["id"]);
+    }
+  }
+  iniciaFormulario() {
     this.addForm = this.formBuilder.group({
       id: [],
       email: ["", Validators.required],
@@ -29,12 +41,33 @@ export class AddComponent implements OnInit {
       celular: ["", Validators.required]
     });
   }
+
+  finByIdUser(id) {
+    this.apiService
+      .findByID(id)
+      .then(resp => resp.json())
+      .then(json => {
+        this.usuario = json;
+        this.usuario.password = "";
+      });
+  }
   onSubmit() {
-    this.apiService.adicionar(this.addForm.value).then(suc => {
-      if (suc) {
-        this.router.navigate(["/usuarios"]);
-      }
-    });
+    console.log("Model usuario", this.usuario);
+    console.log("Formulario", this.addForm.value);
+    if (this.usuario.id > 0) {
+      this.apiService
+        .edit(this.usuario)
+        .then(suc => {
+          console.log(suc);
+          this.router.navigate(["/usuarios"]);
+        })
+        .catch(err => console.log(err));
+    } else {
+      this.apiService.adicionar(this.addForm.value).then(suc => {
+        if (suc) {
+        }
+      });
+    }
   }
   onListUser() {
     this.router.navigate(["/usuarios"]);

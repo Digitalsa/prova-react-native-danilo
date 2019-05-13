@@ -27,7 +27,7 @@ export default class Adicionar extends Component {
     celular: ""
   };
   componentDidMount() {
-    if (this.props.navigation.state.params) {
+    if (this.props.navigation.state.params !== undefined) {
       this.setState({
         nome: this.props.navigation.state.params.item.nome || "",
         email: this.props.navigation.state.params.item.email || "",
@@ -54,11 +54,11 @@ export default class Adicionar extends Component {
     }
   };
   onSubmitHandler = () => {
-    //http://34.192.62.185:3256/api/usuarios/novo
-    const data = this.state;
-    console.log(this.props);
-    console.log(this.props.navigation.state.params.item.id);
-    if (this.props.navigation.state.params.item.id > 0) {
+    console.log(this.props.navigation);
+    if (
+      this.props.navigation.state.params !== undefined &&
+      this.props.navigation.state.params.item.id > 0
+    ) {
       Axios.put(
         `${url}usuarios/update/${this.props.navigation.state.params.item.id}`,
         { ...this.state }
